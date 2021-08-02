@@ -9,12 +9,12 @@ const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = ()=>{
     return(
-        <DrawerNavigator>
+        <Drawer.Navigator>
 
             <Drawer.Screen name="Home" component={TabNavigator} />
             <Drawer.Screen name="ProflieScreen" component={ProflieScreen} />
             
-        </DrawerNavigator>
+        </Drawer.Navigator>
     )
 }
 
