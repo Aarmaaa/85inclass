@@ -43,16 +43,23 @@ export default class FeedScreen extends React.Component{
             return(
                 <View style={styles.container} >
                     <SafeAreaView style={styles.safeArea} />
-                    <View>
-                        <Image
-                        source={require('../assets/logo.png')}
-                        style={styles.img}
-                        />
-                    <FlatList
-                    keyExtractor= {this.keyExtractor}
-                    data= {story}
-                    renderItem= {this.renderItem}
-                    />
+                    <View style = {styles.title}>
+                        <View style={story.icon}>
+                            <Image
+                            source={require('../assets/logo.png')}
+                            style={styles.img}
+                            />
+                        </View>
+                        <View style={styles.headerContainer}>
+                            <Text style={styles.header} >Story App</Text>
+                        </View>
+                        <View style={{flex:0.85}}>
+                            <FlatList
+                            keyExtractor= {this.keyExtractor}
+                            data= {story}
+                            renderItem= {this.renderItem}
+                            />
+                        </View>
                     </View>
 
                 </View>
@@ -73,5 +80,24 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         resizeMode: 'contain'
-    }
+    },
+    title: {
+        flex: 0.7,
+        flexDirection: "row"
+    },
+    icon: {
+        flex: 0.3,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    headerContainer: {
+        flex: 0.7,
+        justifyContent: 'center'
+    },
+    header: {
+        color:"white",
+        fontSize: RFValue(30),
+        fontFamily: "Bubblegum"
+        
+    },
 })

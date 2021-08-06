@@ -8,7 +8,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 
 var customFont = {'Bubblegum':require("../assets/fonts/BubblegumSans-Regular.ttf")}
 
-export default class StoryCard extends React.Component{
+export default class Story extends React.Component{
 
     constructor(props){
         super(props)
@@ -16,7 +16,7 @@ export default class StoryCard extends React.Component{
             fontLoaded:false
         }
     }
-
+    
     async _loadFontsAsync(){
         await Font.loadAsync(customFont);
         this.setState({

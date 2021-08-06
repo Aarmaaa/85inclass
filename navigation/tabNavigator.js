@@ -12,7 +12,7 @@ const Tab = createMaterialBottomTabNavigator()
 const BottomTabNavigator = ()=>{
   return (
       <Tab.Navigator
-      labeled={false}
+      labeled={false} 
       barStyle={styles.bottomTabStyle}
       screenOptions={({route})=>({
         tabBarIcon:({focused, color, size})=>{
@@ -25,7 +25,7 @@ const BottomTabNavigator = ()=>{
           }
           return <Ionicons name={iconName} size={RFValue(25)} color={color} style={styles.icons} />
         }
-      })}
+      })} 
       inactiveColor={"gray"}
       activeColor={"#ee8249"}
       >

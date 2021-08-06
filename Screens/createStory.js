@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text,Image, View, FlatList, SafeAreaView, Platform, StatusBar, ScrollView} from 'react-native';
+import { StyleSheet, Text, TextInput,Image, View, FlatList, SafeAreaView, Platform, StatusBar, ScrollView} from 'react-native';
 
 import DropDownPicker from 'react-native-dropdown-picker';
 
@@ -17,7 +17,8 @@ export default class CreateStory extends React.Component{
         super(props)
         this.state={
             fontLoaded:false,
-            previewImg:"image_1"
+            previewImg:"image_1",
+            dropDownHeight: 40,
         }
     }
 
@@ -61,8 +62,69 @@ export default class CreateStory extends React.Component{
                         <ScrollView>
                             <Image source={previewImages[this.state.previewImg]} />
                             <View>
-                                <DropDownPicker/>
+                                <DropDownPicker
+                                items={[
+                                    {label:"image 1", value:"image_1"},
+                                    {label:"image 2", value:"image_2"},
+                                    {label:"image 3", value:"image_3"},
+                                    {label:"image 4", value:"image_4"},
+                                    {label:"image 5", value:"image_5"},
+                                ]}
+                                defaultValue={this.state.previewImg}
+                                containerStyle={{height:40, borderRadius:20, marginBottom:10}}
+                                style={{backgroundColor:"transparent"}}
+                                onOpen={()=>{
+                                    this.setState({
+                                        dropDownHeight: 170
+                                    })
+                                }}
+                                onClose ={()=>{
+                                    this.setState({
+                                        dropDownHeight: 40
+                                    })
+                                }}
+                                arrowStyle={{color:"white", fontFamily:"Bubblegum"}}
+                                dropDownStyle={{backgroundColor:"#2f345d"}}
+                                itemStyle={{justifyContent:"flex-start"}}
+                                labelStyle={{color:"white", fontFamily:"Bubblegum"}}
+                                onChangeItem={(item) => {
+                                    this.setState({
+                                        previewImg: item.value
+                                    })
+                                }}
+                                />
                             </View>
+                            
+                            <TextInput
+                                placeholder="title"
+                                style={styles.input}
+                                onChangeText={text => this.setState({ title }) }
+                                placeholderTextColor="white"
+                            />
+                            <TextInput
+                                placeholder="description"
+                                style={styles.input}
+                                onChangeText={text => this.setState({ description }) }
+                                placeholderTextColor="white"
+                                multiline={true}
+                                numberOfLines={4}
+                            />
+                            <TextInput
+                                placeholder="stroy"
+                                style={styles.input}
+                                onChangeText={text => this.setState({ stroy }) }
+                                placeholderTextColor="white"
+                                multiline={true}
+                                numberOfLines={20}
+                            />
+                            <TextInput
+                                placeholder="moral"
+                                style={styles.input}
+                                onChangeText={text => this.setState({ moral }) }
+                                placeholderTextColor="white"
+                                multiline={true}
+                                numberOfLines={4}
+                            />
                         </ScrollView>
                     </View>
                 </View>
@@ -83,5 +145,15 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         resizeMode: 'contain'
+    },
+    input: {
+       height:RFValue(40),
+       borderColor:"white",
+       borderWidth:RFValue(1),
+       borderRadius:RFValue(10),
+       paddingLeft:RFValue(10),
+       color:"white",
+       fontFamily:'Bubblegum',
+       marginTop:RFValue(15), 
     }
 })
