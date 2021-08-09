@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text,Image, View, FlatList, SafeAreaView, Platform, StatusBar, } from 'react-native';
+import { StyleSheet, Text,Image, View, FlatList, SafeAreaView, Platform, StatusBar, TouchableOpacity, } from 'react-native';
 import Ionicons from "react-native-vector-icons/Ionicons";
+import * as Speech from 'expo-speech';
 
 import * as Font from 'expo-font'
 import AppLoading from 'expo-app-loading';
@@ -13,7 +14,9 @@ export default class Story extends React.Component{
     constructor(props){
         super(props)
         this.state={
-            fontLoaded:false
+            fontLoaded:false,
+            speakerIcon: "volume-high-outline",
+            speakerColor: "grey"
         }
     }
     
@@ -28,8 +31,27 @@ export default class Story extends React.Component{
         this._loadFontsAsync();
     }
 
+    tts = async(title, author, story ,moral) => {
+        const currentColor = this.state.speakerColor;
+        this.setState({
+            speakerColor: currentColor === "grey" ? "red" : "grey"
+        })
+        if(currentColor === "grey" ){
+            Speech.speak(`${title} by ${author}`)
+            Speech.speak(story)
+            Speech.speak("the moral of the story is")
+            Speech.speak(moral)
+        }
+        else{
+            Speech.stop()
+        }
+    }
+
     render(){
-        if(!this.state.fontLoaded){
+        if(!this.props.route.params){
+            this.props.navigation.navigate("Home")
+        }
+        else if (!this.state.fontLoaded){
             return <AppLoading/>
         }
         else{
@@ -45,6 +67,23 @@ export default class Story extends React.Component{
                                 <Text style={styles.authorText} > {this.props.story.author} </Text>
                                 <Text style={styles.descriptionText} > {this.props.story.description} </Text>
                         </View>
+
+
+                        <View>
+                            <TouchableOpacity
+                            onPress={()=>{
+                                this.tts(this.props.route.params.story.title, this.props.route.params.story.author, this.props.route.params.story.description, this.props.route.params.story.moral)
+                            }}
+                            >
+                                <Ionicons
+                                    name={this.state.speakerIcon}
+                                    size= {RFValue(30)}
+                                    color= {this.state.speakerColor}
+                                    style={{ margin: RFValue(15) }}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        
                         <View style={styles.actionContainer} >
                             <View style={styles.likeButtonContainer} >
                                 <Ionicons name="heart" size={RFValue(30)} color="white" />

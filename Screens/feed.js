@@ -32,7 +32,7 @@ export default class FeedScreen extends React.Component{
     keyExtractor=(item,index)=> index.toString()
 
     renderItem=({item: story})=>{
-        return <StoryCard story = {story} />
+        return <StoryCard story = {story} navigation = {this.props.navigation} />
     }
 
     render(){
